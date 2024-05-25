@@ -1,5 +1,10 @@
 import requests
 from bs4 import BeautifulSoup
+import openpyxl
+
+workbook = openpyxl.Workbook()
+
+hoja_activa = workbook.active
 
 productos_array_meli = []
 precios_array_meli = []
@@ -23,5 +28,12 @@ for i in productos_meli:
     if producto and precio:
         productos_array_meli.append({"nombre": producto.text.strip(), "precio": precio.text.strip()})
 
+# Guardar en el excel
 
-print(productos_array_meli)
+for i in range(len(productos_array_meli)):
+    hoja_activa.cell(row = i + 1, column = 1, value = productos_array_meli[i]["nombre"])
+    hoja_activa.cell(row = i + 1, column = 2, value = productos_array_meli[i]["precio"])
+
+
+ruta_guardado = '../excel/productos.xlsx'
+workbook.save(ruta_guardado)
