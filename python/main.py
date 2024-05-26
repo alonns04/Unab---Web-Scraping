@@ -43,5 +43,7 @@ for i in range(len(productos_array_meli)): # Itera y lo va metiendo en el excel
     hoja_activa.cell(row = i + 1, column = 3, value =  productos_array_meli[i]["precio"])
     hoja_activa.cell(row = i + 1, column = 4, value =  productos_array_meli[i]["link"])
 
-ruta_guardado = '../excel/producto_{}.xlsx'.format(string_busqueda)
+ruta_guardado = '../excel/producto-{}.xlsx'.format(string_busqueda.replace(" ","_").replace("-","_"))
 workbook.save(ruta_guardado)
+
+print(productos_array_meli)
