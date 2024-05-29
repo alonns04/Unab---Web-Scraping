@@ -8,7 +8,7 @@ hoja_activa = workbook.active # Abre el excel
 
 def meli_string1(string): # Reemplaza los espacios por _
     string = string.strip().lower()
-    return re.sub(r'\s+', '_', string)
+    return re.sub(r'\s+', '-', string)
 
 def meli_string2(string): # Reemplaza los espacios por "20%"
     return string.replace(" ", "%20")
@@ -47,3 +47,5 @@ ruta_guardado = '../excel/producto-{}.xlsx'.format(string_busqueda.replace(" ","
 workbook.save(ruta_guardado)
 
 print(productos_array_meli)
+print('https://listado.mercadolibre.com.ar/{}#D[A:{}]'.format(meli_string1(string_busqueda), meli_string2(string_busqueda)))
+
