@@ -57,5 +57,5 @@ class MercadoLibre():
             self.active_sheet.cell(row = i + 2, column = 4, value =  self.array_products[i]["link"])
         self.workbook.save(self.excel_path)
 
-producto_1 = MercadoLibre(str(input("Qué buscamos? : ")))
-print(producto_1.array_products)
+producto_1 = MercadoLibre(input("Qué buscamos? : "))
+producto_2 = MercadoLibre(input("Qué buscamos? : "))
