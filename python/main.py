@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import openpyxl
 import re
+import pandas as pd
 
 class MercadoLibre():
 
@@ -13,14 +14,7 @@ class MercadoLibre():
         self.html_content = self.requests.content
         self.soup_parsed = BeautifulSoup(self.html_content, 'html.parser') # Contenido Parseado
         self.divs = self.soup_parsed.find_all('div', class_='ui-search-result__content-wrapper') # Filtra según etiqueta y clase
-
-        self.workbook = openpyxl.Workbook() # Genera un excel
-        self.active_sheet = self.workbook.active # Abre el excel        
-        self.excel_path = '../excel/producto-{}.xlsx'.format(self.get_product_name().replace(" ","_").replace("-","_"))
-
-
         self.create_filter_list()
-        self.create_excel()
 
     def get_product_name(self):
         return self.product_name
@@ -44,18 +38,24 @@ class MercadoLibre():
                 self.array_products.append({"nombre": producto.text.strip(), "precio": precio.text.strip(), "moneda": moneda.text.strip(), "link": link})
         # Filtrar elementos que comiencen con "https://click1." (se repiten)
         self.array_products = [producto for producto in self.array_products if not producto['link'].startswith('https://click1.')]
-
+    
     def create_excel(self):
-        self.active_sheet.cell(row = 1, column = 1, value = "nombre")
-        self.active_sheet.cell(row = 1, column = 2, value = "moneda")
-        self.active_sheet.cell(row = 1, column = 3, value = "precio")
-        self.active_sheet.cell(row = 1, column = 4, value = "link")
-        for i in range(len(self.array_products)): # Itera y lo va metiendo en el excel
-            self.active_sheet.cell(row = i + 2, column = 1, value = self.array_products[i]["nombre"])
-            self.active_sheet.cell(row = i + 2, column = 2, value =  self.array_products[i]["moneda"])
-            self.active_sheet.cell(row = i + 2, column = 3, value =  self.array_products[i]["precio"])
-            self.active_sheet.cell(row = i + 2, column = 4, value =  self.array_products[i]["link"])
-        self.workbook.save(self.excel_path)
+            workbook = openpyxl.Workbook() # Genera un excel
+            active_sheet = workbook.active # Abre el excel        
+            excel_path = '../excel/producto-{}.xlsx'.format(self.get_product_name().replace(" ","_").replace("-","_"))
+            active_sheet.cell(row = 1, column = 1, value = "nombre")
+            active_sheet.cell(row = 1, column = 2, value = "moneda")
+            active_sheet.cell(row = 1, column = 3, value = "precio")
+            active_sheet.cell(row = 1, column = 4, value = "link")
+            for i in range(len(self.array_products)): # Itera y lo va metiendo en el excel
+                active_sheet.cell(row = i + 2, column = 1, value = self.array_products[i]["nombre"])
+                active_sheet.cell(row = i + 2, column = 2, value =  self.array_products[i]["moneda"])
+                active_sheet.cell(row = i + 2, column = 3, value =  self.array_products[i]["precio"])
+                active_sheet.cell(row = i + 2, column = 4, value =  self.array_products[i]["link"])
+            workbook.save(excel_path)
+    
 
 producto_1 = MercadoLibre(input("Qué buscamos? : "))
-producto_2 = MercadoLibre(input("Qué buscamos? : "))
+
+producto_1.create_excel()
+
