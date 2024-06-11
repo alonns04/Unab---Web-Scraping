@@ -13,8 +13,20 @@ class MercadoLibre():
         self.requests = requests.get(self.get_link_product())
         self.html_content = self.requests.content
         self.soup_parsed = BeautifulSoup(self.html_content, 'html.parser') # Contenido Parseado
+        self.all_pages()
         self.divs = self.soup_parsed.find_all('div', class_='ui-search-result__content-wrapper') # Filtra según etiqueta y clase
         self.create_filter_list()
+
+    def all_pages(self):
+        next_link = self.soup_parsed.find('a', {'title': 'Siguiente'})
+        if next_link:
+            next_page_url = next_link.get('href')
+            while next_page_url:
+                    new_request = requests.get(next_page_url)
+                    new_html_content = new_request.content
+                    new_soup_parsed = BeautifulSoup(new_html_content, 'html.parser')
+                    self.soup_parsed.append(new_soup_parsed)
+                    next_link = new_soup_parsed.find('a', {'title': 'Siguiente'})
 
     def get_product_name(self):
         return self.product_name
@@ -56,6 +68,5 @@ class MercadoLibre():
     
 
 producto_1 = MercadoLibre(input("Qué buscamos? : "))
-
 producto_1.create_excel()
 
