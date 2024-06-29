@@ -59,7 +59,7 @@ class Amazon():
         if next_link:
             next_page_url = "https://www.amazon.com/-/es" + next_link.get('href')
             while next_page_url:
-                if index < 2:
+                if index < 6:
                     new_request = requests.get(next_page_url, headers=self.headers)
                     new_html_content = new_request.content
                     new_soup_parsed = BeautifulSoup(new_html_content, 'html.parser')

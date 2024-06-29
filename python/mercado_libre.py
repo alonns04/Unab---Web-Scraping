@@ -23,7 +23,7 @@ class MercadoLibre():
         if next_link:
             next_page_url = next_link.get('href')
             while next_page_url:
-                    if index < 1:
+                    if index < 6:
                         new_request = requests.get(next_page_url)
                         new_html_content = new_request.content
                         new_soup_parsed = BeautifulSoup(new_html_content, 'html.parser')
