@@ -5,12 +5,18 @@ from graphs import graph
 
 def main():
     elemento = input("Ingrese el elemento a buscar: ")
+    
     PRODUCT_AMAZON = Amazon(elemento)
     PRODUCT_MELI = MercadoLibre(elemento)
-    #create_excel(PRODUCT_AMAZON)
-    #create_excel(PRODUCT_MELI)
-    graph(PRODUCT_AMAZON,1400,"mep")
-    graph(PRODUCT_MELI,1400,"mep")
+
+    create_excel(PRODUCT_AMAZON)
+    create_excel(PRODUCT_MELI)
+
+    dollars_list = [["Dólar Cripto", 1493], ["Dólar Mep", 1378], ["Dólar Blue", 1428]]
+
+    for dolar_nombre, dolar_valor in dollars_list:
+        graph(PRODUCT_AMAZON, dolar_valor, dolar_nombre)
+        graph(PRODUCT_MELI, dolar_valor, dolar_nombre)
 
 if __name__ == "__main__":
     main()
