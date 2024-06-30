@@ -79,6 +79,3 @@ class Amazon():
                     index += 1
                 else: 
                     break
-
-    def __str__(self):
-        return self.array_products

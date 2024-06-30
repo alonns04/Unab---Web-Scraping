@@ -59,6 +59,3 @@ class MercadoLibre():
                 self.array_products.append({"nombre": producto.text.strip(), "precio": precio.text.strip(), "moneda": moneda, "link": link})
         # Filtrar elementos que comiencen con "https://click1." (se repiten)
         self.array_products = [producto for producto in self.array_products if not producto['link'].startswith('https://click1.')]
-
-    def __str__(self):
-        return self.array_products

@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-def graph(product, dolar, dolar_nombre):
+def graph(product, dolar, dolar_nombre, page):
     products = product.array_products
     data = products[:20]
     list_products_price = [[i['nombre'], i['precio'], i['moneda']] for i in data]
@@ -44,8 +44,8 @@ def graph(product, dolar, dolar_nombre):
 
     # Etiquetas y título
     ax.set_xlabel('Primeros 20 Productos')
-    ax.set_ylabel(f'Precio ({dolar_nombre})')
-    ax.set_title('Precios de Productos')
+    ax.set_ylabel(f'Precio (USD)')
+    ax.set_title(f'Productos de {page} con: {dolar_nombre}')
 
     plt.subplots_adjust(left=0.15, right=0.65, top=0.9, bottom=0.1)
 
