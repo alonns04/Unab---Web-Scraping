@@ -23,7 +23,7 @@ class MercadoLibre():
         if next_link:
             next_page_url = next_link.get('href')
             while next_page_url:
-                    if index < 6:
+                    if index < 1:
                         new_request = requests.get(next_page_url)
                         new_html_content = new_request.content
                         new_soup_parsed = BeautifulSoup(new_html_content, 'html.parser')
@@ -48,11 +48,15 @@ class MercadoLibre():
     def create_filter_list(self):
         for i in self.divs: # Itera en los divs de la página y extra la información
             producto = i.find("h2")
-            moneda = i.find("span", class_="andes-money-amount__currency-symbol")
+            moneda = i.find("span", class_="andes-money-amount__currency-symbol").text.strip()
+            if moneda == "$":
+                moneda = "ARS"
+            else:
+                moneda = "USD"
             precio = i.find("span", class_="andes-money-amount__fraction")
             link = i.find("a")["href"]
             if producto and precio:
-                self.array_products.append({"nombre": producto.text.strip(), "precio": precio.text.strip(), "moneda": moneda.text.strip(), "link": link})
+                self.array_products.append({"nombre": producto.text.strip(), "precio": precio.text.strip(), "moneda": moneda, "link": link})
         # Filtrar elementos que comiencen con "https://click1." (se repiten)
         self.array_products = [producto for producto in self.array_products if not producto['link'].startswith('https://click1.')]
 

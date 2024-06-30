@@ -1,29 +1,17 @@
 from amazon import Amazon
 from mercado_libre import MercadoLibre
-import openpyxl
-import os
+from excels import create_excel
+from graphs import graph
 
-elemento = input("Ingrese el elemento a buscar: ")
+def main():
+    elemento = input("Ingrese el elemento a buscar: ")
+    PRODUCT_AMAZON = Amazon(elemento)
+    PRODUCT_MELI = MercadoLibre(elemento)
+    create_excel(PRODUCT_AMAZON)
+    create_excel(PRODUCT_MELI)
+    graph(PRODUCT_AMAZON)
+    graph(PRODUCT_MELI)
 
-producto_amazon = Amazon(elemento)
-producto_meli = MercadoLibre(elemento)
-
-def create_excel(product):
-        workbook = openpyxl.Workbook() # Genera un excel
-        active_sheet = workbook.active # Abre el excel  
-        relative_path = os.path.join('..', 'excel')
-        absolute_path = os.path.abspath(relative_path) + product.excel_path
-        active_sheet.cell(row = 1, column = 1, value = "nombre")
-        active_sheet.cell(row = 1, column = 2, value = "moneda")
-        active_sheet.cell(row = 1, column = 3, value = "precio")
-        active_sheet.cell(row = 1, column = 4, value = "link")
-        for i in range(len(product.array_products)): # Itera y lo va metiendo en el excel
-            active_sheet.cell(row = i + 2, column = 1, value = product.array_products[i]["nombre"])
-            active_sheet.cell(row = i + 2, column = 2, value =  product.array_products[i]["moneda"])
-            active_sheet.cell(row = i + 2, column = 3, value =  product.array_products[i]["precio"])
-            active_sheet.cell(row = i + 2, column = 4, value =  product.array_products[i]["link"])
-        workbook.save(absolute_path)
-
-
-create_excel(producto_amazon)
-create_excel(producto_meli)
+if __name__ == "__main__":
+    main()
+    

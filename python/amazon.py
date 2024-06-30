@@ -17,6 +17,8 @@ class Amazon():
         self.html_content = BeautifulSoup(self.requests.content, "html.parser")
         self.all_pages()
         self.divs = self.html_content.find_all("div", class_="sg-col-20-of-24 s-result-item s-asin sg-col-0-of-12 sg-col-16-of-20 sg-col s-widget-spacing-small gsx-ies-anchor sg-col-12-of-16")
+        if len(self.divs) == 0:
+            self.divs = self.html_content.find_all("div", class_="puis-card-container s-card-container s-overflow-hidden aok-relative puis-expand-height puis-include-content-margin puis puis-v1o8fah2gdzrpk2871rsdu92m5n s-latency-cf-section puis-card-border")
         self.create_filter_list()
 
 
@@ -35,11 +37,19 @@ class Amazon():
     def create_filter_list(self):
         for i in self.divs: # Itera en los divs de la página y extra la información
             producto = i.find("span", class_="a-size-medium a-color-base a-text-normal")
+            try: 
+                producto = producto.text
+            except:
+                try:
+                    producto = i.find("span", class_="a-size-medium a-color-base a-text-normal").text
+                except:
+                    try:
+                        producto = i.find("span", class_="a-size-base-plus a-color-base a-text-normal").text
+                    except:
+                        producto = self.product_name
             link = "https://www.amazon.com/-/es" + i.find("a", class_="a-link-normal s-underline-text s-underline-link-text s-link-style a-text-normal").get("href")
-            #moneda = i.find("span", class_="a-offscreen")
-            #if moneda:
-            #    moneda = moneda.text
-            moneda = "US$"
+
+            moneda = "USD"
             price = i.find("span", class_="a-price-whole")
             cents = i.find("span", class_="a-price-fraction")
             if price and price.text:
@@ -47,7 +57,7 @@ class Amazon():
                 if cents:
                     price = int(price) + int(cents.text) / 100
                 self.array_products.append({
-                    "nombre": producto.text,
+                    "nombre": producto,
                     "precio": price,
                     "moneda": moneda,
                     "link": link
@@ -59,7 +69,7 @@ class Amazon():
         if next_link:
             next_page_url = "https://www.amazon.com/-/es" + next_link.get('href')
             while next_page_url:
-                if index < 6:
+                if index < 3:
                     new_request = requests.get(next_page_url, headers=self.headers)
                     new_html_content = new_request.content
                     new_soup_parsed = BeautifulSoup(new_html_content, 'html.parser')
