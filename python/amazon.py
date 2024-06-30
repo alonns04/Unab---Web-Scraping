@@ -52,10 +52,11 @@ class Amazon():
             moneda = "USD"
             price = i.find("span", class_="a-price-whole")
             cents = i.find("span", class_="a-price-fraction")
+
             if price and price.text:
-                price = price.text.split(".")[0] 
+                price = price.text.split(".")[0].replace(',','')
                 if cents:
-                    price = int(price) + int(cents.text) / 100
+                    price = float(int(price) + int(cents.text) / 100)
                 self.array_products.append({
                     "nombre": producto,
                     "precio": price,
