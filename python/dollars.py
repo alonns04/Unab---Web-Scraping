@@ -9,10 +9,14 @@ if response.status_code ==200:
     soup = BeautifulSoup(response.text, 'html.parser')
     dolarblue = soup.find_all(href="/cotizaciondolarblue")
     for dolarblue in dolarblue:
-        titulo = dolarblue.find(class_="venta")
-        if titulo:
-            print("el valor del dolar blue es: ", titulo.text.strip())
-
+        resultado1 = dolarblue.find(class_="venta")
+        if resultado1:
+            print("El precio actual del Blue es: ", resultado1.text.strip())
+    dolarmep = soup.find_all(href="/cotizaciondolarbolsa")
+    for dolarmep in dolarmep:
+        resultado2 = dolarmep.find(class_="venta")
+        if resultado2:
+            print("El precio actual del dolar MEP es: ", resultado2.text.strip())
 else:
     print("Error al cargar la web, codigo: ", response.status_code)
 
