@@ -1,5 +1,24 @@
 # Unab-Web-Scraping
 
-* Para no instalar todo en la máquina se puede activar un entorno virtual e instalarle las librerías que están en el requirement.txt.
+## Crear un venv
+### python -m venv venv
 
-* Hasta ahora, genera un excel con el nombre y el precio de los productos en Mercado Libre y Amazon. Hace scraping en todas las páginas, tanto de Mercado Libre como de Amazon y recopila los precios, el nombre, el link y la moneda del producto.
+## Activarlo
+### venv\Scripts\activate
+
+## Clonar el repositorio
+### git clone https://github.com/alonns04/Unab-Web-Scraping
+
+## Entrar a la carpeta Unab-Web-Scraping
+### cd Unab-Web-Scraping
+
+## Descargar las librerías. 
+### pip install -r requirements.txt
+
+## Ingresar a la carpeta python
+### cd python
+
+## Ejecutar main.py
+### py main.py
+
+# Listo!
