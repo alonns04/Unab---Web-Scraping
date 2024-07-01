@@ -2,6 +2,7 @@ from amazon import Amazon
 from mercado_libre import MercadoLibre
 from excels import create_excel
 from graphs import graph
+from dollars import dollar
 
 def main():
     elemento = input("Ingrese el elemento a buscar: ")
@@ -12,7 +13,7 @@ def main():
     create_excel(PRODUCT_AMAZON)
     create_excel(PRODUCT_MELI)
 
-    dollars_list = [["Dólar Cripto", 1493], ["Dólar Mep", 1378], ["Dólar Blue", 1428]]
+    dollars_list = dollar()
 
     for dolar_nombre, dolar_valor in dollars_list:
         graph(PRODUCT_AMAZON, dolar_valor, dolar_nombre, "Amazon")
