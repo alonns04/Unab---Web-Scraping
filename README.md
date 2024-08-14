@@ -1,24 +1,29 @@
 # Unab-Web-Scraping
 
-## Crear un venv
+### COLAB: 
+## https://colab.research.google.com/drive/1Unfzi9pq18bdmgmAGALZtcXd37KvyAJU#scrollTo=E2zBYlYZhYXl
+### Sólo compatible con Mercado Libre
+
+# ¿Cómo usar?
+## 1ero: Crear un venv
 ### python -m venv venv
 
-## Activarlo
+## 2do: Activarlo
 ### venv\Scripts\activate
 
-## Clonar el repositorio
+## 3ro: Clonar el repositorio
 ### git clone https://github.com/alonns04/Unab-Web-Scraping
 
-## Entrar a la carpeta Unab-Web-Scraping
+## 4to: Entrar a la carpeta Unab-Web-Scraping
 ### cd Unab-Web-Scraping
 
-## Descargar las librerías. 
+## 5to: Descargar las librerías. 
 ### pip install -r requirements.txt
 
-## Ingresar a la carpeta python
+## 6to: Ingresar a la carpeta python
 ### cd python
 
-## Ejecutar main.py
+## 7mo: Ejecutar main.py
 ### py main.py
 
 # Listo!
